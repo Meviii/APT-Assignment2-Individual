@@ -1,0 +1,6 @@
+2
+./Tests/TestGameBoardIO/loadedBoard.sav
+place Q at H6
+place E at H8
+place Done
+quit

@@ -1,0 +1,50 @@
+
+Welcome to Scrabble!
+--------------------
+
+Menu
+----
+
+1. New Game
+2. Load Game
+3. Credits (Show student information)
+4. Quit
+
+> 
+Starting a New Game
+Player count? 2-4
+> Enter a name for player 1: 
+> Player1 name set to: Jim
+Enter a name for player 2: 
+> Player2 name set to: Juan
+
+Let's Play!
+
+Player 1 starts first.
+
+    0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  
+---------------------------------------------------------------
+A |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+B |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+C |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+D |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+E |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+F |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+G |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+H |   |   |   |   |   |   |   | A |   |   |   |   |   |   |   |
+I |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+J |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+K |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+L |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+
+Jim, it's your turn
+
+Score for Jim: 0
+Score for Juan: 0
+
+Your hand is: 
+G-2, T-1, L-1, I-1, F-4, J-8, C-3
+> Goodbye!

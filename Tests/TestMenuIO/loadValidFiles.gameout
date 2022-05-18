@@ -1,0 +1,63 @@
+
+Welcome to Scrabble!
+--------------------
+
+Menu
+----
+
+1. New Game
+2. Load Game
+3. Credits (Show student information)
+4. Quit
+
+> Please enter a filename to load: 
+> Error loading game
+Menu
+----
+
+1. New Game
+2. Load Game
+3. Credits (Show student information)
+4. Quit
+
+> Please enter a filename to load: 
+> Error loading game
+Menu
+----
+
+1. New Game
+2. Load Game
+3. Credits (Show student information)
+4. Quit
+
+> Please enter a filename to load: 
+> Your hand is: 
+I-1, E-1, O-1, L-1, R-1, E-1, E-1
+Your hand is: 
+A-1, V-4, N-1, E-1, S-1, E-1, E-1
+    0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  
+---------------------------------------------------------------
+A |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+B |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+C |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+D |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+E |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+F |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+G |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+H |   |   |   |   |   |   |   | R |   |   |   |   |   |   |   |
+I |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+J |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+K |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+L |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+
+Jin, it's your turn
+
+Score for Jin: 0
+Score for Jodie: 0
+
+Your hand is: 
+I-1, E-1, O-1, L-1, R-1, E-1, E-1
+> Goodbye!

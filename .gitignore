@@ -1,0 +1,8 @@
+# Group files
+Notes.txt
+*.xlsx
+
+# Object/Executable files
+*.o
+scrabble
+*.exe

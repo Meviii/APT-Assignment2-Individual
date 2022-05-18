@@ -1,0 +1,14 @@
+Running the tests:
+========================
+Run ./scrabble < ./Tests/TestGameEngineIO/<testname>.input > ./Tests/TestGameBoardIO/<testname>.output to make the output file.
+diff -w ./Tests/TestGameEngineIO/<testname>.output ./Tests/TestGameBoardIO/<testname>.gameout to run the IO test.
+
+The test Cases:
+========================
+passAfterTilesPlaced tests the result of placing tiles and then passing and trying to 'place done' after passing.
+placeAwayFromTiles tests placing a tile not adjacent to a current on-board tile
+placeDoneWithoutTilesPlaced tests entering the command 'place done' with vs without placing tiles before it
+placeTileBingo tests the 7-letter word BINGO
+placeTileInvalidLetters tests placing incorrect tile letters, eg. two chars, Tiles not in hand, special characters, nums
+replaceTileNotInBag tests replacing a letter in a player's hand, a letter not in a player's hand
+saveWithOrWithoutFileExt tests the save game functionality. If a user inputs a sav file without the extension, it should append the .sav

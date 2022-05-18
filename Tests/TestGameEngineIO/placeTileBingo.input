@@ -1,0 +1,11 @@
+2
+./Tests/TestGameEngineIO/placeTile.sav
+place A at H6
+place E at H5
+place R at H4
+place G at H3
+place T at H8
+place W at H9
+place T at H10
+place Done
+quit

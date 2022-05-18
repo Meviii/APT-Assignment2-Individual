@@ -1,0 +1,9 @@
+Running the tests:
+========================
+Run ./scrabble < ./Tests/TestGameBoardIO/<testname>.input > ./Tests/TestGameBoardIO/<testname>.output to make the output file.
+diff -w ./Tests/TestGameBoardIO/<testname>.output ./Tests/TestGameBoardIO/<testname>.gameout to run the IO test.
+
+The test Cases:
+========================
+newBoard tests a new GameBoard and its state upon starting a game. it is not possible to load a new board and due to the random element diff won't work correctly here
+loadedBoard tests a loaded GameBoard and its updated state with added tiles.
