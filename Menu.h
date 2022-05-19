@@ -32,70 +32,28 @@ using std::ws;
 class Menu
 {
 public:
-    /**
-     * @brief Construct a new Menu object
-     *
-     */
     Menu();
-
-    /**
-     * @brief Destroy the Menu object, for deleting the dynamic object of the Player
-     *
-     */
     ~Menu();
-
-    /**
-     * @brief display the main menu and get user input from the stdin
-     *
-     */
+    
     void runMenu();
-
-    /**
-     * @brief print the detailed option choices for the player
-     *
-     */
     void printMenu();
-
-    /**
-     * @brief Main logic for the menu object
-     *
-     */
     void runChoice();
-
-    /**
-     * @brief print the detailed credits info
-     *
-     */
     void printCredits();
 
     void playerSelection(int i);
     void playerCheck();
-
-    /**
-     * @brief launching a new game
-     *
-     */
     void newGame();
 
     vector<string> argTokenizer(string input);
     int argCounter(string input);
 
-    /**
-     * @brief check weather there are two players in the game
-     *
-     * @return true
-     * @return false
-     */
-    bool isTwoPlayer();
+    bool getIsTwoPlayer();
+    void setIsTwoPlayer(bool val);
 
-    /**
-     * @brief load the game detailed info from the input filename
-     *
-     * @param inputFile
-     */
     void loadGame(string inputFile);
 
 private:
+    bool isTwoPlayer = true;
     bool wordMatcherToggle = false;
     int choice;
     vector<Player *> players;

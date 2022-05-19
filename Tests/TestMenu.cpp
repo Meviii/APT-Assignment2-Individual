@@ -31,7 +31,7 @@ int main(void)
 
     cout << "==================================" << endl;
     cout << "Check if Two Players" << endl;
-    if (menu.isTwoPlayer())
+    if (menu.getIsTwoPlayer())
     {
         cout << "isTwoPlayer() function passed" << endl;
     }

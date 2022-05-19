@@ -48,6 +48,7 @@ void Menu::printMenu()
     cout << "Extra Features:" << endl;
     cout << endl;
     cout << "5. Word Matcher" << endl;
+    cout << "6. 1-4 Player Mode" << endl;
     cout << endl;
 }
 
@@ -130,6 +131,38 @@ void Menu::runChoice()
             this->runMenu();
             
         }
+        else if (this->choice == 6)
+        {
+            string toggler;
+            cout << "Would you like to turn on 1-4 player mode? YES/NO" << endl;
+            if (this->isTwoPlayer == true){
+                cout << "Currently: OFF" << endl;
+            }else{
+                cout << "Currently: ON" << endl;
+            }
+            
+            cout << "> ";
+            cin >> toggler;
+            transform(toggler.begin(), toggler.end(), toggler.begin(), ::toupper);
+            while (cin.fail() || !(toggler == "NO" || toggler == "YES")){
+                cin.clear();
+                cin.ignore(10000000, '\n');
+                cout << "Invalid input" << endl;
+                cout << "> ";
+                cin >> toggler;
+                transform(toggler.begin(), toggler.end(), toggler.begin(), ::toupper);
+            }
+
+            if (toggler == "NO"){
+                cout << "Turned Off." << endl;
+                this->isTwoPlayer = true;
+            }else if(toggler == "YES"){
+                cout << "Turned On." << endl;
+                this->isTwoPlayer = false;
+            }
+
+            this->runMenu();
+        }
         else if (cin.eof() == true)
         {
             cout << "Goodbye!" << endl;
@@ -186,19 +219,19 @@ void Menu::playerCheck()
     if (player_count >= 1 && player_count <= 4)
     {
         // if there are two players
-        if (player_count == 2 && this->isTwoPlayer() == true)
+        if (player_count == 2 && this->getIsTwoPlayer() == true)
         {
             // start the game
             this->playerSelection(player_count);
             return this->newGame();
         }
-        else if (player_count > 2 && this->isTwoPlayer() == true)
+        else if (player_count > 2 && this->getIsTwoPlayer() == true)
         {
             // if there are more than two players, show error message
             cout << "Currently support 2-player only." << endl;
             this->runChoice();
         }
-        else if (this->isTwoPlayer() == false)
+        else if (this->getIsTwoPlayer() == false)
         {
             this->playerSelection(player_count);
             return this->newGame();
@@ -262,9 +295,14 @@ void Menu::playerSelection(int i)
  * @return true
  * @return false
  */
-bool Menu::isTwoPlayer()
+bool Menu::getIsTwoPlayer()
 {
-    return false;
+    return this->isTwoPlayer;
+}
+
+void Menu::setIsTwoPlayer(bool val)
+{
+    this->isTwoPlayer = val;
 }
 
 /**
