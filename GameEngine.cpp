@@ -13,6 +13,7 @@ GameEngine::GameEngine(TileBag *tb, std::vector<Player *> players, GameBoard *gb
     this->players = players;
     this->gb = gb;
     readWordList();
+
 }
 
 void GameEngine::readWordList(){
@@ -27,7 +28,7 @@ void GameEngine::readWordList(){
         std::cout << "Error while trying to open file" << std::endl;
     }else{
         while (getline(wordListData, word)) {
-            this->word_list.push_back(word);
+            this->wordList.push_back(word);
         }
     }
 }
@@ -233,10 +234,21 @@ void GameEngine::placeTile(std::string input)
         {
             // Place Tile
             gb->addTile(this->boardRow.find(positionOnBoard[0])->second, valueOfPositionOnBoard, tile_to_place); // place tile
-
+            
             // Check if it is a word match
-            if (isWord((this->boardRow.find(positionOnBoard[0])->second), valueOfPositionOnBoard) == true){
-                std::cout << "SUCCESS" << std::endl;
+            if (getWordMatcherToggle() == true){
+                vector<string> wordMatches = isWord((this->boardRow.find(positionOnBoard[0])->second), valueOfPositionOnBoard);
+                int wordMatchesSize = wordMatches.size();
+                
+                if (!(wordMatches.empty())){
+                    std::cout << "Found: " << std::endl;
+
+                    for (int i = 0; i < wordMatchesSize; i++){
+                        std::cout << wordMatches[i] << std::endl;
+                    }
+                }else{
+                    std::cout << "No word(s) found yet!" << std::endl;
+                }
             }
             
             // Remove Tile
@@ -249,7 +261,7 @@ void GameEngine::placeTile(std::string input)
 
             cout << "Added tile to " << positionOnBoard[0] << valueOfPositionOnBoard << endl;
             curr_player->setScore(curr_player->getScore() + (Value)this->valueByLetter(((Letter)charHandLetter)));
-            //gb->printBoard();
+            // gb->printBoard();
         }else{
             cout << "Please place next to another tile" << endl;
         }
@@ -309,9 +321,74 @@ void GameEngine::replaceTile(std::string input)
     }
 }
 
-bool GameEngine::isWord(int row, int col)
+/*
+    Performs cross checks to find matching word from word_list
+    returns found words
+*/
+vector<string> GameEngine::isWord(int row, int col)
 {
+    vector<string> foundWords;
+    vector<string> patternToCheck;
 
+    string verBotTop = verticalBotToTopSearch(col);
+    string verTopBot = verticalTopToBotSearch(col);
+    string horRightLeft = horizontalRightToLeftSearch(row);
+    string horLeftRight = horizontalLeftToRightSearch(row);
+    patternToCheck.push_back(verBotTop);
+    patternToCheck.push_back(verTopBot);
+    patternToCheck.push_back(horRightLeft);
+    patternToCheck.push_back(horLeftRight);
+
+    foundWords = checkWord(patternToCheck);
+
+    return foundWords;
+}
+
+void GameEngine::setWordMatcherToggle(bool val){
+    this->wordMatcherToggle = val;
+}
+bool GameEngine::getWordMatcherToggle(){
+    return this->wordMatcherToggle;
+}
+
+/*
+    Checks if given words in vector are available
+    returns words that are not found already, else returns empty vector
+*/
+vector<string> GameEngine::checkWord(vector<string> wordsToCheck)
+{
+    vector<string> wordMatches;
+
+    int wordsToCheckSize = wordsToCheck.size();
+    // int checkedWordListSize = checkedWords.size();
+    // // if word is already found, remove from wordsToCheck
+    // for (int i = 0; i < wordsToCheckSize; i++){
+    //     for (int j = 0; j < checkedWordListSize; j++){
+    //         if (wordsToCheck[i].find(checkedWords[j]) != std::string::npos){
+    //             wordsToCheck[i].erase(0, wordsToCheck[i].length());
+    //         }
+    //     }
+    // }
+
+    int wordListSize = wordList.size();
+    // checks if pattern consists a word from wordList
+    for (int j = 0; j < wordsToCheckSize; j++){ 
+        if (wordsToCheck[j].length() > 2){
+            for (int i = 0; i < wordListSize; i++){
+                if (wordsToCheck[j].find(wordList[i]) != std::string::npos) {
+                    if(!(find(checkedWords.begin(), checkedWords.end(), wordList[i]) != checkedWords.end())) {
+                        wordMatches.push_back(wordList[i]);
+                        checkedWords.push_back(wordList[i]);
+                    }
+                }
+            }
+        }
+    }
+
+    return wordMatches;
+}
+
+std::string GameEngine::verticalBotToTopSearch(int col){
     string word_to_check = "";
     std::vector<std::vector<Tile *>> board = gb->getBoard();
 
@@ -324,30 +401,75 @@ bool GameEngine::isWord(int row, int col)
 
         Letter curLetter = board[row_holder][col]->letter;
         word_to_check += curLetter;
-        int checkedWordListSize = checked_words.size();
         
-        for (int j = 0; j < checkedWordListSize; j++){
-            if (word_to_check == checked_words[j]){
-                return false;
-            }   
-        }
         row_holder -= 1;
     }
 
-    int wordListSize = word_list.size();
-    std::cout << word_to_check << std::endl;
-    if (word_to_check.length() > 2){
-        for (int i = 0; i < wordListSize; i++){
-            if (word_to_check.find(word_list[i]) != std::string::npos) {
-                this->checked_words.push_back(word_list[i]);
-                return true;
-            }
-        }
-    }
-    return false;
+    return word_to_check;
 
 }
 
+std::string GameEngine::verticalTopToBotSearch(int col){
+    string word_to_check = "";
+    std::vector<std::vector<Tile *>> board = gb->getBoard();
+
+    // vertical - top to bottom search
+    int row_holder = (BOARD_MAX-BOARD_MAX);
+    while (board[(row_holder)][col] == NULL){
+        row_holder += 1;
+    }
+    while (board[row_holder][col] != NULL){
+
+        Letter curLetter = board[row_holder][col]->letter;
+        word_to_check += curLetter;
+        
+        row_holder += 1;
+    }
+
+    return word_to_check;
+
+}
+
+string GameEngine::horizontalLeftToRightSearch(int row){
+    string word_to_check = "";
+    std::vector<std::vector<Tile *>> board = gb->getBoard();
+
+    // horizontal - left to right search
+    int col_holder = (BOARD_MAX-BOARD_MAX);
+    while (board[row][col_holder] == NULL){
+        col_holder += 1;
+    }
+
+    while (board[row][col_holder] != NULL){
+
+        Letter curLetter = board[row][col_holder]->letter;
+        word_to_check += curLetter;
+        
+        col_holder += 1;
+    }
+
+    return word_to_check;
+}
+
+string GameEngine::horizontalRightToLeftSearch(int row){
+    string word_to_check = "";
+    std::vector<std::vector<Tile *>> board = gb->getBoard();
+
+    // horizontal - right to left search
+    int col_holder = (BOARD_MAX-1);
+    while (board[row][col_holder] == NULL){
+        col_holder -= 1;
+    }
+    while (board[row][col_holder] != NULL){
+
+        Letter curLetter = board[row][col_holder]->letter;
+        word_to_check += curLetter;
+        
+        col_holder -= 1;
+    }
+
+    return word_to_check;
+}
 
 /*
  * Check game end conditions
@@ -527,5 +649,7 @@ void GameEngine::saveGame(std::string inputFile)
             iter_sz += 1;
         }
     }
+    gameData << "\n";
+    gameData << this->wordMatcherToggle;
     gameData.close();
 }

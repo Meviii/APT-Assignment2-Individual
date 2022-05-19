@@ -1,14 +1,31 @@
-0
-2
-playerone
-0
-0
-N-1, E-1, A-1, H-4, N-1, R-1, G-2
-playertwo
-0
-0
-N-1, M-3, N-1, E-1, E-1, L-1, O-1
-I-1, H-4, S-1, T-1, A-1, E-1, I-1, Z-10, S-1, I-1, I-1, E-1, U-1, R-1, I-1, C-3, Z-10, I-1, Y-4, I-1, O-1, E-1, O-1, G-2, I-1, A-1, U-1, T-1, P-3, H-4, T-1, E-1, L-1, E-1, D-2, H-4, D-2, I-1, I-1, D-2, P-3, N-1, E-1, O-1, I-1, G-2, E-1, L-1, O-1, I-1, E-1, L-1, O-1, A-1, A-1, A-1, O-1, Z-10, N-1, O-1, O-1, L-1, O-1, F-4, O-1, D-2, D-2, A-1, U-1, A-1, T-1, W-4, G-2, L-1, J-8, B-3, S-1, D-2, J-8, T-1, P-3, E-1, P-3, O-1
+
+Welcome to Scrabble!
+--------------------
+
+Menu
+----
+
+1. New Game
+2. Load Game
+3. Credits (Show student information)
+4. Quit
+
+Extra Features:
+
+5. Word Matcher
+
+> 
+Starting a New Game
+Player count? 2-4
+> Enter a name for player 1: 
+> Player1 name set to: playerone
+Enter a name for player 2: 
+> Player2 name set to: playertwo
+
+Let's Play!
+
+Player 1 starts first.
+
     0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  
 ---------------------------------------------------------------
 A |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
@@ -26,5 +43,14 @@ L |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-I@H7
-1
+
+playerone, it's your turn
+
+Score for playerone: 0
+Score for playertwo: 0
+
+Your hand is: 
+N-1, E-1, A-1, H-4, N-1, R-1, G-2
+> Please enter a filename to save: 
+> Continuing game...
+> Goodbye!

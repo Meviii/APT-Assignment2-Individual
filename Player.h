@@ -14,7 +14,7 @@ class Player
 public:
     Player();
     Player(std::string name, LinkedList *hand);
-
+    Player(string name);
     int getScore();
     void setScore(int Score);
 

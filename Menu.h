@@ -96,6 +96,7 @@ public:
     void loadGame(string inputFile);
 
 private:
+    bool wordMatcherToggle = false;
     int choice;
     vector<Player *> players;
 };

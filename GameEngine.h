@@ -45,15 +45,24 @@ public:
     bool checkGameOver();
     void printWinner();
     void saveGame(string inputFile);
-    bool isWord(int row, int col);
-    
+    void setWordMatcherToggle(bool val);
+    bool getWordMatcherToggle();
+
     int curr_player_turn = 0;
     map<char, int> boardRow = {{'A', 0}, {'B', 1}, {'C', 2}, {'D', 3}, {'E', 4}, {'F', 5}, {'G', 6}, {'H', 7}, {'I', 8}, {'J', 9}, {'K', 10}, {'L', 11}, {'M', 12}, {'N', 13}, {'O', 14}};
 
 private:
     void readWordList();
-    std::vector<std::string> checked_words;
-    std::vector<std::string> word_list;
+    string verticalBotToTopSearch(int col);
+    string verticalTopToBotSearch(int col);
+    string horizontalRightToLeftSearch(int row);
+    string horizontalLeftToRightSearch(int row);
+    vector<string> checkWord(vector<string> wordsToCheck);
+    vector<string> isWord(int row, int col);
+
+    bool wordMatcherToggle = true;
+    std::vector<std::string> checkedWords;
+    std::vector<std::string> wordList;
     bool isGameOver;
     TileBag *tb;
     vector<Player *> players;

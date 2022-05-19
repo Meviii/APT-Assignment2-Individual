@@ -5,6 +5,11 @@ Player::Player()
     hand = new LinkedList();
 }
 
+Player::Player(string name)
+{
+    hand = new LinkedList();
+}
+
 Player::Player(string name, LinkedList *tile_hand)
 {
     this->name = name;

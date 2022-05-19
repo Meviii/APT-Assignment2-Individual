@@ -45,6 +45,10 @@ void Menu::printMenu()
     cout << "3. Credits (Show student information)" << endl;
     cout << "4. Quit" << endl;
     cout << endl;
+    cout << "Extra Features:" << endl;
+    cout << endl;
+    cout << "5. Word Matcher" << endl;
+    cout << endl;
 }
 
 // Choice selector
@@ -92,6 +96,39 @@ void Menu::runChoice()
         {
             cout << "Goodbye!" << endl;
             return;
+        }
+        else if (this->choice == 5)
+        {
+            string toggler;
+            cout << "Would you like to toggle the word matcher? YES/NO" << endl;
+            if (this->wordMatcherToggle == false){
+                cout << "Currently: OFF" << endl;
+            }else{
+                cout << "Currently: ON" << endl;
+            }
+            
+            cout << "> ";
+            cin >> toggler;
+            transform(toggler.begin(), toggler.end(), toggler.begin(), ::toupper);
+            while (cin.fail() || !(toggler == "NO" || toggler == "YES")){
+                cin.clear();
+                cin.ignore(10000000, '\n');
+                cout << "Invalid input" << endl;
+                cout << "> ";
+                cin >> toggler;
+                transform(toggler.begin(), toggler.end(), toggler.begin(), ::toupper);
+            }
+
+            if (toggler == "NO"){
+                cout << "Turned Off." << endl;
+                this->wordMatcherToggle = false;
+            }else if(toggler == "YES"){
+                cout << "Turned On." << endl;
+                this->wordMatcherToggle = true;
+            }
+
+            this->runMenu();
+            
         }
         else if (cin.eof() == true)
         {
@@ -381,6 +418,10 @@ void Menu::loadGame(string inputFile)
 
     // set current player
     ge->curr_player_turn = current_player_index;
+    // set word matcher toggle
+    bool toggle;
+    gameData >> toggle;
+    ge->setWordMatcherToggle(toggle);
     // start playing the game
     ge->gamePlay();
 }
