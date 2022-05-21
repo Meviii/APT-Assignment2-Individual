@@ -10,11 +10,8 @@
 int main(int argc, char *args[])
 {
 
-   // std::ofstream saveFile("fileName");
-   // saveFile << "Test" << std::endl;
-
-   Menu *menu = new Menu();
-   menu->runMenu();
+      Menu *menu = new Menu();
+      menu->runMenu();
 
    return EXIT_SUCCESS;
 }

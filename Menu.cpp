@@ -2,9 +2,16 @@
 
 Menu::Menu()
 {
+    readPlayerFile();
     cout << endl;
     cout << "Welcome to Scrabble!" << endl;
     cout << "--------------------" << endl;
+    cout << endl;
+    cout << "Congrats to our best players!" << endl;
+
+    for (int i = 0; i < 3; i++){
+        cout << (i+1) << ". "<< nameScoreVector[i].first << ", Score: " << nameScoreVector[i].second << endl;
+    }
     cout << endl;
 }
 
@@ -27,6 +34,7 @@ void Menu::runMenu()
         cin.clear();
         cin.ignore(10000, '\n');
         cout << "Invalid input" << endl;
+        cout << "> ";
     }
 
     // run the game
@@ -244,11 +252,13 @@ void Menu::playerCheck()
         }
     }
     else
-    {
+    {   
+        cout << "Incorrect choice" << endl;
         this->choice = 1;
         this->runMenu();
     }
 }
+
 // Individual player setter
 void Menu::playerSelection(int i)
 {
@@ -267,11 +277,11 @@ void Menu::playerSelection(int i)
         cin >> playerName;
 
         // input a valid player name
-        while (cin.fail() || playerName.find_first_of("0123456789!@#$%^&*()_+-=[]{};':\",./<>\\`~|") != string::npos || nameHolder == playerName)
+        while (cin.fail() || playerName.find_first_of("0123456789!@#$%^&*()_+-=[]{};':\",./<>\\`~|") != string::npos || nameHolder == playerName || isPlayerNameUnique(playerName) == false)
         {
             cin.clear();
-            cin.ignore();
-            cout << "Please enter a valid name." << endl;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cout << "Name is taken or is invalid. No numbers please." << endl;
             std::cout << "> ";
             cin >> playerName;
         }
@@ -462,4 +472,54 @@ void Menu::loadGame(string inputFile)
     ge->setWordMatcherToggle(toggle);
     // start playing the game
     ge->gamePlay();
+}
+
+// Read current players from file
+void Menu::readPlayerFile(){
+    map<int, string, std::greater<int> > toSort;
+
+    ifstream playerFile;
+    playerFile.open("players.txt");
+
+    if (!playerFile){
+        std::cout << "Error opening player file" << std::endl;
+    }else{
+        string name;
+        int score;
+
+        while (!playerFile.eof()){
+            playerFile >> name;
+            playerFile >> score;
+            toSort.insert(std::pair<int, string>(score, name));
+        }
+    }
+
+    for (auto iter = toSort.begin(); iter != toSort.end(); ++iter){
+        nameScoreVector.push_back(std::make_pair(iter->second, iter->first));
+    }
+
+    playerFile.close();
+}
+
+// Check if name is unique from playerFile
+bool Menu::isPlayerNameUnique(string name){
+    ifstream playerFile;
+    playerFile.open("players.txt");
+    bool toRet = false;
+    if (!playerFile){
+        std::cout << "Error opening player file" << std::endl;
+    }else{
+        string line;
+        int sz = nameScoreVector.size();
+        for (int i = 0; i < sz; i++){
+            if (nameScoreVector[i].first == name){
+                return false;
+            }else{
+                toRet = true;
+            }
+        }
+    }
+
+    playerFile.close();
+    return toRet;
 }

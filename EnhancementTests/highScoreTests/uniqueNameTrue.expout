@@ -1,0 +1,61 @@
+
+Welcome to Scrabble!
+--------------------
+
+Congrats to our best players!
+1. testnamethree, Score: 3
+2. testnameone, Score: 2
+3. testnametwo, Score: 1
+
+Menu
+----
+
+1. New Game
+2. Load Game
+3. Credits (Show student information)
+4. Quit
+
+Extra Features:
+
+5. Word Matcher
+6. 1-4 Player Mode
+
+> 
+Starting a New Game
+Player count? 2-4
+> Enter a name for player 1: 
+> Name is taken or is invalid. No numbers please.
+> Player1 name set to: testnameshouldwork
+Enter a name for player 2: 
+> Player2 name set to: testnameanother
+
+Let's Play!
+
+Player 1 starts first.
+
+    0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  
+---------------------------------------------------------------
+A |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+B |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+C |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+D |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+E |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+F |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+G |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+H |   |   |   |   |   |   |   | I |   |   |   |   |   |   |   |
+I |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+J |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+K |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+L |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+M |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+N |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+O |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+
+testnameshouldwork, it's your turn
+
+Score for testnameshouldwork: 0
+Score for testnameanother: 0
+
+Your hand is: 
+D-2, W-4, Y-4, S-1, I-1, Y-4, O-1
+> Goodbye!

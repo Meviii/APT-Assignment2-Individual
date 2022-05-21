@@ -10,11 +10,6 @@
 
 int main(void){
     Menu* menu = new Menu();
-    
-    menu->loadGame("savegame.sav");
-
-    // string place_tile_input = "place A at A1";
-    // ge->placeTile(place_tile_input);
-    // gb->printBoard();
+    menu->readPlayerFile();
     return 0;
 }

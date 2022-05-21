@@ -51,7 +51,7 @@ void GameEngine::gamePlay()
 
     // Initiate player turn
     //this->curr_player_turn = 0;
-    curr_player = players[curr_player_turn];
+    this->curr_player = players[curr_player_turn];
 
     isGameOver = false;
 
@@ -68,14 +68,14 @@ void GameEngine::gamePlay()
 
             string input;
             cout << endl;
-            cout << curr_player->getName() << ", it's your turn" << endl;
+            cout << this->curr_player->getName() << ", it's your turn" << endl;
             cout << endl;
             for (Player *p : players)
             {
                 cout << "Score for " << p->getName() << ": " << p->getScore() << endl;
             }
             cout << endl;
-            curr_player->printHand();
+            this->curr_player->printHand();
 
             bool turn_end = false;
             int tile_place_counter = 0;
@@ -94,15 +94,15 @@ void GameEngine::gamePlay()
                 if (input == "PLACE DONE")
                 {
                     if (tile_place_counter > 0){
-                        if (curr_player->getPassCounter() == 1)
+                        if (this->curr_player->getPassCounter() == 1)
                         {
-                            curr_player->setPassCounter(0);
+                            this->curr_player->setPassCounter(0);
                         }
                         if (tile_place_counter == 7)
                         {
                             cout << "BINGO!!!" << endl;
                             cout << "You have scored an additional 50 points" << endl;
-                            curr_player->setScore(curr_player->getScore() + 50);
+                            this->curr_player->setScore(this->curr_player->getScore() + 50);
                         }
                         changePlayer();
                         turn_end = true;
@@ -115,7 +115,8 @@ void GameEngine::gamePlay()
                 // CHOICE #2: Current player passing their turn
                 else if (input == "PASS" && tile_place_counter == 0)
                 {
-                    curr_player->setPassCounter((curr_player->getPassCounter() + 1));
+                    this->curr_player->setPassCounter((this->curr_player->getPassCounter() + 1));
+                    cout << (this->curr_player->getPassCounter()) << endl;
                     changePlayer();
                     turn_end = true;
                     gb->printBoard();
@@ -228,7 +229,7 @@ void GameEngine::placeTile(std::string input)
     char charHandLetter = tileHandLetter[0];
     Tile *tile_to_place = new Tile((Letter)charHandLetter, (Value)this->valueByLetter(((Letter)charHandLetter)));
     std::vector<std::vector<Tile *>> board = gb->getBoard();
-    if (gb->isTileValid(this->boardRow.find(positionOnBoard[0])->second, valueOfPositionOnBoard) && curr_player->isTileInHand(charHandLetter))
+    if (gb->isTileValid(this->boardRow.find(positionOnBoard[0])->second, valueOfPositionOnBoard) && this->curr_player->isTileInHand(charHandLetter))
     {
         if (gb->isTileAdj((this->boardRow.find(positionOnBoard[0])->second), valueOfPositionOnBoard) == true)
         {
@@ -252,15 +253,15 @@ void GameEngine::placeTile(std::string input)
             }
             
             // Remove Tile
-            curr_player->removeTileInHand(charHandLetter);
+            this->curr_player->removeTileInHand(charHandLetter);
             // Draw Tile if available
-            if (curr_player->canDrawTile(tb))
+            if (this->curr_player->canDrawTile(tb))
             {
-                curr_player->drawTile(tb);
+                this->curr_player->drawTile(tb);
             }
 
             cout << "Added tile to " << positionOnBoard[0] << valueOfPositionOnBoard << endl;
-            curr_player->setScore(curr_player->getScore() + (Value)this->valueByLetter(((Letter)charHandLetter)));
+            this->curr_player->setScore(this->curr_player->getScore() + (Value)this->valueByLetter(((Letter)charHandLetter)));
             // gb->printBoard();
         }else{
             cout << "Please place next to another tile" << endl;
@@ -279,12 +280,12 @@ void GameEngine::changePlayer()
     if (players_size > (curr_player_turn + 1))
     {
         curr_player_turn += 1;
-        curr_player = players[curr_player_turn];
+        this->curr_player = players[curr_player_turn];
     }
     else if (players_size == (curr_player_turn + 1))
     {
         curr_player_turn = 0;
-        curr_player = players[curr_player_turn];
+        this->curr_player = players[curr_player_turn];
     }
     else
     {
@@ -304,13 +305,13 @@ void GameEngine::replaceTile(std::string input)
     vector<string> s = this->argTokenizer(input);
     tileLetterToRemove = s[1][0];
 
-    if (curr_player->isTileInHand(tileLetterToRemove))
+    if (this->curr_player->isTileInHand(tileLetterToRemove))
     {
-        curr_player->removeTileInHand(tileLetterToRemove);
+        this->curr_player->removeTileInHand(tileLetterToRemove);
 
-        if (curr_player->canDrawTile(tb))
+        if (this->curr_player->canDrawTile(tb))
         {
-            curr_player->drawTile(tb);
+            this->curr_player->drawTile(tb);
         }
         cout << "Tile removed from hand" << endl;
         this->changePlayer();
@@ -478,15 +479,13 @@ string GameEngine::horizontalRightToLeftSearch(int row){
  */
 bool GameEngine::checkGameOver()
 {
-    if (tb->getSize() == 0)
+
+    for (Player *p : players)
     {
-        for (Player *p : players)
+        if (p->getHandSize() == 0 || p->getPassCounter() == 2 || tb->getSize() == 0)
         {
-            if (p->getHandSize() == 0 || p->getPassCounter() == 2)
-            {
-                this->isGameOver = true;
-                return true;
-            }
+            this->isGameOver = true;
+            return true;
         }
     }
 
@@ -510,6 +509,8 @@ void GameEngine::printWinner()
     bool isDraw = false;
     for (Player *p : players)
     {
+        savePlayer(p);
+        
         if (p->getScore() > highest_score)
         {
             tmp->setName(p->getName());
@@ -533,6 +534,21 @@ void GameEngine::printWinner()
     cout << "Goodbye!" << endl;
     abort();
     return;
+}
+
+// Save a player name, score into player file
+void GameEngine::savePlayer(Player* player){
+    std::ofstream playerFile;
+    playerFile.open("players.txt", std::ios::app);
+
+    if (!playerFile){
+        std::cout << "Error opening player file" << std::endl;
+    }else{
+
+        playerFile << player->getName() << "\n";
+        playerFile << player->getScore() << "\n";
+    }
+    playerFile.close();
 }
 
 /*

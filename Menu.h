@@ -52,7 +52,13 @@ public:
 
     void loadGame(string inputFile);
 
+    void readPlayerFile();
 private:
+    //void readPlayerFile();
+    // void sortPlayerScoreMap();
+    bool isPlayerNameUnique(string name);
+    bool compareValues(std::pair<string, int>& a, std::pair<string, int>& b);
+    vector < std::pair<string, int> > nameScoreVector;
     bool isTwoPlayer = true;
     bool wordMatcherToggle = false;
     int choice;
