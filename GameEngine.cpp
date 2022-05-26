@@ -544,7 +544,6 @@ void GameEngine::savePlayer(Player* player){
     if (!playerFile){
         std::cout << "Error opening player file" << std::endl;
     }else{
-
         playerFile << player->getName() << "\n";
         playerFile << player->getScore() << "\n";
     }

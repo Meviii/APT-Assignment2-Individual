@@ -60,7 +60,6 @@ private:
     string horizontalLeftToRightSearch(int row);
     vector<string> checkWord(vector<string> wordsToCheck);
     vector<string> isWord(int row, int col);
-
     bool wordMatcherToggle = true;
     std::vector<std::string> checkedWords;
     std::vector<std::string> wordList;

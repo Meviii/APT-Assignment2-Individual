@@ -9,10 +9,7 @@ Menu::Menu()
     cout << endl;
     cout << "Congrats to our best players!" << endl;
 
-    for (int i = 0; i < 3; i++){
-        cout << (i+1) << ". "<< nameScoreVector[i].first << ", Score: " << nameScoreVector[i].second << endl;
-    }
-    cout << endl;
+    printTopPlayers();
 }
 
 Menu::~Menu() {}
@@ -476,7 +473,7 @@ void Menu::loadGame(string inputFile)
 
 // Read current players from file
 void Menu::readPlayerFile(){
-    map<int, string, std::greater<int> > toSort;
+    map<int, string, std::greater_equal<int> > toSort;
 
     ifstream playerFile;
     playerFile.open("players.txt");
@@ -522,4 +519,18 @@ bool Menu::isPlayerNameUnique(string name){
 
     playerFile.close();
     return toRet;
+}
+
+void Menu::printTopPlayers(){
+    int nameScoreVectorSize = nameScoreVector.size();
+    if (nameScoreVectorSize > 3){
+        for (int i = 0; i < 3; i++){
+            cout << (i+1) << ". "<< nameScoreVector[i].first << ", Score: " << nameScoreVector[i].second << endl;
+        }
+    }else{
+        for (int i = 0; i < nameScoreVectorSize; i++){
+            cout << (i+1) << ". "<< nameScoreVector[i].first << ", Score: " << nameScoreVector[i].second << endl;
+        }
+    }
+    cout << endl;
 }
