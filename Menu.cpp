@@ -7,7 +7,6 @@ Menu::Menu()
     cout << "Welcome to Scrabble!" << endl;
     cout << "--------------------" << endl;
     cout << endl;
-    cout << "Congrats to our best players!" << endl;
 
     printTopPlayers();
 }
@@ -480,6 +479,8 @@ void Menu::readPlayerFile(){
 
     if (!playerFile){
         std::cout << "Error opening player file" << std::endl;
+    }else if (playerFile.peek() == std::ifstream::traits_type::eof()){
+        return;
     }else{
         string name;
         int score;
@@ -521,13 +522,15 @@ bool Menu::isPlayerNameUnique(string name){
     return toRet;
 }
 
+// Displays top 3 players by score when called
 void Menu::printTopPlayers(){
     int nameScoreVectorSize = nameScoreVector.size();
+    cout << "Congrats to our best players!" << endl;
     if (nameScoreVectorSize > 3){
         for (int i = 0; i < 3; i++){
             cout << (i+1) << ". "<< nameScoreVector[i].first << ", Score: " << nameScoreVector[i].second << endl;
         }
-    }else{
+    }else if (nameScoreVectorSize < 3){
         for (int i = 0; i < nameScoreVectorSize; i++){
             cout << (i+1) << ". "<< nameScoreVector[i].first << ", Score: " << nameScoreVector[i].second << endl;
         }

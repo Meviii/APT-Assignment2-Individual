@@ -39,23 +39,18 @@ public:
     void printMenu();
     void runChoice();
     void printCredits();
-
     void playerSelection(int i);
     void playerCheck();
     void newGame();
-
+    bool getIsTwoPlayer();
+    void setIsTwoPlayer(bool val);
+    void loadGame(string inputFile);
     vector<string> argTokenizer(string input);
     int argCounter(string input);
 
-    bool getIsTwoPlayer();
-    void setIsTwoPlayer(bool val);
-
-    void loadGame(string inputFile);
+private:
 
     void readPlayerFile();
-private:
-    //void readPlayerFile();
-    // void sortPlayerScoreMap();
     void printTopPlayers();
     bool isPlayerNameUnique(string name);
     bool compareValues(std::pair<string, int>& a, std::pair<string, int>& b);
