@@ -477,9 +477,14 @@ void Menu::readPlayerFile(){
     ifstream playerFile;
     playerFile.open("players.txt");
 
+    std::streampos current = playerFile.tellg();
+    playerFile.seekg(0, playerFile.end);
+    bool empty = !playerFile.tellg();
+    playerFile.seekg(current, playerFile.beg);
+
     if (!playerFile){
         std::cout << "Error opening player file" << std::endl;
-    }else if (playerFile.peek() == std::ifstream::traits_type::eof()){
+    }else if (empty){
         return;
     }else{
         string name;
@@ -495,7 +500,6 @@ void Menu::readPlayerFile(){
     for (auto iter = toSort.begin(); iter != toSort.end(); ++iter){
         nameScoreVector.push_back(std::make_pair(iter->second, iter->first));
     }
-
     playerFile.close();
 }
 
@@ -526,13 +530,15 @@ bool Menu::isPlayerNameUnique(string name){
 void Menu::printTopPlayers(){
     int nameScoreVectorSize = nameScoreVector.size();
     cout << "Congrats to our best players!" << endl;
-    if (nameScoreVectorSize > 3){
-        for (int i = 0; i < 3; i++){
-            cout << (i+1) << ". "<< nameScoreVector[i].first << ", Score: " << nameScoreVector[i].second << endl;
-        }
-    }else if (nameScoreVectorSize < 3){
-        for (int i = 0; i < nameScoreVectorSize; i++){
-            cout << (i+1) << ". "<< nameScoreVector[i].first << ", Score: " << nameScoreVector[i].second << endl;
+    if (nameScoreVectorSize != 0){
+        if (nameScoreVectorSize > 3){
+            for (int i = 0; i < 3; i++){
+                cout << (i+1) << ". "<< nameScoreVector[i].first << ", Score: " << nameScoreVector[i].second << endl;
+            }
+        }else if (nameScoreVectorSize < 3){
+            for (int i = 0; i < nameScoreVectorSize; i++){
+                cout << (i+1) << ". "<< nameScoreVector[i].first << ", Score: " << nameScoreVector[i].second << endl;
+            }
         }
     }
     cout << endl;
